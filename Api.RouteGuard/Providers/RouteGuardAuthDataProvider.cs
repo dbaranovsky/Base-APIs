@@ -1,5 +1,5 @@
 ﻿using System.Configuration;
-using Api.Infrastructure.Constants;
+using Api.Common.Constants;
 using Api.RouteGuard.Models;
 
 namespace Api.RouteGuard.Providers
@@ -13,8 +13,7 @@ namespace Api.RouteGuard.Providers
                 ClientId = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardClientId],
                 ClientSecret = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardClientSecret],
                 Username = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardUsername],
-                Password = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardPassword],
-                AuthUrl = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardAuthUrl]
+                Password = ConfigurationManager.AppSettings[ConfigurationKeys.RouteGuardPassword]
             };
         }
     }

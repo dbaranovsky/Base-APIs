@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Api.Infrastructure.Extensions
+namespace Api.Common.Extensions
 {
     public static class StringExtensions
     {

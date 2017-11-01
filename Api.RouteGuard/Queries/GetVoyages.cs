@@ -1,6 +1,6 @@
-﻿using System.IO;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Api.Infrastructure.HttpClient;
 using Api.Infrastructure.Providers;
 using Api.RouteGuard.Constants;
 using Api.RouteGuard.RequestHandlers;
@@ -13,19 +13,11 @@ namespace Api.RouteGuard.Queries
 
         public class Handler : BaseRouteGuardRequestHandler<Query, string>
         {
-            protected override string RelativeUrl { get; set; } = Routes.Voyages;
-            protected override string HttpMethod { get; set; } = WebRequestMethods.Http.Get;
-            public Handler(IAuthProvider authProvider) : base(authProvider) { }
+            public Handler(IAuthProvider authProvider, IBaseHttpClient<string> httpClient) : base(authProvider, httpClient) { }
 
-            protected override async Task<string> Execute(Query request, HttpWebRequest webRequest)
+            protected override async Task<string> Execute(Query request, Dictionary<string, string> headers)
             {
-                using (var response = (HttpWebResponse)await webRequest.GetResponseAsync())
-                {
-                    using (var reader = new StreamReader(response.GetResponseStream()))
-                    {
-                        return await reader.ReadToEndAsync();
-                    }
-                }
+                return await HttpClient.Get(Routes.Voyages, headers);
             }
         }
     }

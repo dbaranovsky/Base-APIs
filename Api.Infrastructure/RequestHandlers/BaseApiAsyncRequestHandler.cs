@@ -1,5 +1,7 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using Api.Infrastructure.HttpClient;
 using Api.Infrastructure.Providers;
 
 namespace Api.Infrastructure.RequestHandlers
@@ -7,19 +9,17 @@ namespace Api.Infrastructure.RequestHandlers
     public abstract class BaseApiAsyncRequestHandler<TRequest, TResponse>
     {
         private readonly IAuthProvider authProvider;
-        protected abstract string ApiBaseUrl { get; set; }
-        protected abstract string RelativeUrl { get; set; }
-        protected abstract string HttpMethod { get; set; }
-
+        protected readonly IBaseHttpClient<TResponse> HttpClient;
+       
         private const string AuthHeader = "Authorization";
-        private const string BearerAuthType = "Bearer";
 
-        protected BaseApiAsyncRequestHandler(IAuthProvider authProvider)
+        protected BaseApiAsyncRequestHandler(IAuthProvider authProvider, IBaseHttpClient<TResponse> httpClient)
         {
             this.authProvider = authProvider;
+            HttpClient = httpClient;
         }
 
-        protected abstract Task<TResponse> Execute(TRequest request, HttpWebRequest webRequest);
+        protected abstract Task<TResponse> Execute(TRequest request, Dictionary<string, string> headers);
 
         public async Task<TResponse> Handle(TRequest request)
         {
@@ -28,18 +28,17 @@ namespace Api.Infrastructure.RequestHandlers
                 await authProvider.Login();
             }
 
-            var webRequest = BuildRequest();
+            var headers = InitializeHeaders();
 
-            return await Execute(request, webRequest);
+            return await Execute(request, headers);
         }
 
-        private HttpWebRequest BuildRequest()
+        private Dictionary<string, string> InitializeHeaders()
         {
-            var request = (HttpWebRequest)WebRequest.Create($"{ApiBaseUrl}/{RelativeUrl}");
-            request.Headers.Add(AuthHeader, $"{BearerAuthType} {authProvider.AccessTokenModel?.AccessToken}");
-            request.Method = HttpMethod;
-
-            return request;
+            return new Dictionary<string, string>
+            {
+                { AuthHeader, $"{authProvider.AccessTokenModel.TokenType} {authProvider.AccessTokenModel.AccessToken}" }
+            };
         }
     }
 }

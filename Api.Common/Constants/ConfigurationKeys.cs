@@ -1,4 +1,4 @@
-﻿namespace Api.Infrastructure.Constants
+﻿namespace Api.Common.Constants
 {
     public class ConfigurationKeys
     {

@@ -1,12 +1,14 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Api.Infrastructure.Extensions;
+using Api.Common.Extensions;
+using Api.Infrastructure.HttpClient;
 using Api.Infrastructure.Models;
 using Api.Infrastructure.Providers;
-using Api.RouteGuard.Constants;
 using Api.RouteGuard.Models;
-using Newtonsoft.Json;
 
 namespace Api.RouteGuard.Providers
 {
@@ -16,46 +18,30 @@ namespace Api.RouteGuard.Providers
         private const string BasicAuthType = "Basic";
 
         private readonly RouteGuardAuthData authData;
+        private readonly IBaseHttpClient<AuthResponseModel> httpClient;
         private AuthResponseModel authResponse;
 
         public IAccessTokenModel AccessTokenModel => authResponse;
 
         public bool IsAuthorized => authResponse != null;
 
-        public RouteGuardAuthProvider(IRouteGuardAuthDataProvider authProvider)
+        public RouteGuardAuthProvider(IRouteGuardAuthDataProvider authProvider, IBaseHttpClient<AuthResponseModel> httpClient)
         {
+            this.httpClient = httpClient;
             authData = authProvider.GetAuthData();
         }
 
         public async Task Login()
         {
-            var content = Encoding.ASCII.GetBytes(
-                $"grant_type=password&username={authData.Username}&password={authData.Password}&scope=web default rights claims openid");
-            var request = BuildLoginRequest(content);
-
-            using (var response = (HttpWebResponse)await request.GetResponseAsync())
+            var headers = new Dictionary<string, string>
             {
-                using (var reader = new System.IO.StreamReader(response.GetResponseStream()))
-                {
-                    var token = reader.ReadToEnd();
-                    authResponse = JsonConvert.DeserializeObject<AuthResponseModel>(token);
-                }
-            }
-        }
+                { AuthHeader, $"{BasicAuthType} {$"{authData.ClientId}:{authData.ClientSecret}".ToBase64()}"}
+            };
 
-        private HttpWebRequest BuildLoginRequest(byte[] content)
-        {
-            var request = (HttpWebRequest)WebRequest.Create(authData.AuthUrl);
-            request.Headers.Add(AuthHeader, $"{BasicAuthType} {$"{authData.ClientId}:{authData.ClientSecret}".ToBase64()}");
-            request.Method = WebRequestMethods.Http.Post;
-            request.ContentType = "String";
-            request.ContentLength = content.Length;
+            var content = new StringContent($"grant_type=password&username={authData.Username}&password={authData.Password}&scope=web default rights claims openid",
+                Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            var reqStream = request.GetRequestStream();
-            reqStream.Write(content, 0, content.Length);
-            reqStream.Close();
-
-            return request;
+            authResponse = await httpClient.Post(string.Empty, content, headers);
         }
     }
 }
