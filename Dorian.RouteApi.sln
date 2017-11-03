@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dorian.RouteApi.Common", "Dorian.RouteApi.Common\Dorian.RouteApi.Common.csproj", "{3C9BDD44-CA4C-4042-A00D-443600CE008F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dorian.RouteApi.Infrastructure", "Dorian.RouteApi.Infrastructure\Dorian.RouteApi.Infrastructure.csproj", "{77C401C2-576D-456D-A20B-9DF7AF64BADE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RouteGuard", "RouteGuard", "{5AFA8642-F0E8-4A67-AD98-09303BA07FEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dorian.RouteApi.RouteGuard.Core", "Dorian.RouteApi.RouteGuard.Core\Dorian.RouteApi.RouteGuard.Core.csproj", "{24FDA0F8-F854-4FA7-B4F0-33B7506B532E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dorian.RouteApi.RouteGuard.Api", "Dorian.RouteApi.RouteGuard.Api\Dorian.RouteApi.RouteGuard.Api.csproj", "{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C9BDD44-CA4C-4042-A00D-443600CE008F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9BDD44-CA4C-4042-A00D-443600CE008F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9BDD44-CA4C-4042-A00D-443600CE008F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9BDD44-CA4C-4042-A00D-443600CE008F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C401C2-576D-456D-A20B-9DF7AF64BADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C401C2-576D-456D-A20B-9DF7AF64BADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C401C2-576D-456D-A20B-9DF7AF64BADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C401C2-576D-456D-A20B-9DF7AF64BADE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24FDA0F8-F854-4FA7-B4F0-33B7506B532E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24FDA0F8-F854-4FA7-B4F0-33B7506B532E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24FDA0F8-F854-4FA7-B4F0-33B7506B532E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24FDA0F8-F854-4FA7-B4F0-33B7506B532E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{24FDA0F8-F854-4FA7-B4F0-33B7506B532E} = {5AFA8642-F0E8-4A67-AD98-09303BA07FEC}
+		{49B4B557-64C0-4FF3-A76E-C4E5BFCCDDF5} = {5AFA8642-F0E8-4A67-AD98-09303BA07FEC}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3BFEF0F3-A2A8-4083-94F1-AA6560C285F0}
+	EndGlobalSection
+EndGlobal

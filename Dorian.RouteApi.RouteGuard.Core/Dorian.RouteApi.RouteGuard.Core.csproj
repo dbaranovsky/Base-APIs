@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dorian.RouteApi.Common\Dorian.RouteApi.Common.csproj" />
+    <ProjectReference Include="..\Dorian.RouteApi.Infrastructure\Dorian.RouteApi.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
