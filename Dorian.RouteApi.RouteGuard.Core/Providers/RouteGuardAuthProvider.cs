@@ -7,6 +7,7 @@ using Dorian.RouteApi.Infrastructure.HttpClient;
 using Dorian.RouteApi.Infrastructure.Models;
 using Dorian.RouteApi.Infrastructure.Providers;
 using Dorian.RouteApi.Infrastructure.Providers.Auth;
+using Dorian.RouteApi.RouteGuard.Core.Constants;
 using Dorian.RouteApi.RouteGuard.Core.Models;
 
 namespace Dorian.RouteApi.RouteGuard.Core.Providers
@@ -24,7 +25,7 @@ namespace Dorian.RouteApi.RouteGuard.Core.Providers
 
         public bool IsAuthorized => authResponse != null;
 
-        public RouteGuardAuthProvider(IRouteGuardAuthDataProvider authProvider, IBaseHttpClient<AuthResponseModel> httpClient)
+        public RouteGuardAuthProvider(IAuthDataProvider<RouteGuardAuthData> authProvider, IBaseHttpClient<AuthResponseModel> httpClient)
         {
             this.httpClient = httpClient;
             authData = authProvider.GetAuthData();
@@ -40,7 +41,7 @@ namespace Dorian.RouteApi.RouteGuard.Core.Providers
             var content = new StringContent($"grant_type=password&username={authData.Username}&password={authData.Password}&scope=web default rights claims openid",
                 Encoding.UTF8, "application/x-www-form-urlencoded");
 
-            authResponse = await httpClient.Post(string.Empty, content, headers);
+            authResponse = await httpClient.Post(Routes.Login, content, headers);
         }
     }
 }

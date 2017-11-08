@@ -7,6 +7,5 @@
         public const string RouteGuardClientId = "RouteGuard:ClientId";
         public const string RouteGuardClientSecret = "RouteGuard:ClientSecret";
         public const string RouteGuardBaseUrl = "RouteGuard:BaseUrl";
-        public const string RouteGuardAuthUrl = "RouteGuard:AuthUrl";
     }
 }

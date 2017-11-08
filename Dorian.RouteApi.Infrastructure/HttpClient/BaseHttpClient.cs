@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Mime;
 using System.Text;
@@ -29,7 +30,12 @@ namespace Dorian.RouteApi.Infrastructure.HttpClient
                 {
                     response.EnsureCustomSuccessStatusCode();
                 }
-                
+
+                if (typeof(TResult) == typeof(string))
+                {
+                    return (TResult) Convert.ChangeType(await response.Content.ReadAsStringAsync(), typeof(TResult));
+                }
+
                 return JsonConvert.DeserializeObject<TResult>(await response.Content.ReadAsStringAsync());
             }
         }
@@ -44,7 +50,8 @@ namespace Dorian.RouteApi.Infrastructure.HttpClient
                     response.EnsureCustomSuccessStatusCode();
                 }
 
-                return JsonConvert.DeserializeObject<TResult>(await response.Content.ReadAsStringAsync());
+                var responseData = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<TResult>(responseData);
             }
         }
 

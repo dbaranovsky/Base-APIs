@@ -2,6 +2,10 @@
 {
     public class Routes
     {
-        public const string Voyages = "v1/voyages";
+        private const string BaseAuthPath = "accounts/identity/connect/token";
+        private const string BaseApiPath = "routeguard";
+
+        public const string Login = BaseAuthPath;
+        public const string Voyages = BaseApiPath + "/v1/voyages";
     }
 }

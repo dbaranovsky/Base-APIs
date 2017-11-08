@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Dorian.RouteApi.Infrastructure.HttpClient;
-using Dorian.RouteApi.Infrastructure.Providers;
 using Dorian.RouteApi.Infrastructure.Providers.Auth;
 
 namespace Dorian.RouteApi.Infrastructure.RequestHandlers
 {
-    public abstract class BaseApiAsyncRequestHandler<TRequest, TResponse>
+    public abstract class BaseApiAsyncRequestHandler<TRequest, TResponse> : IAsyncRequestHandler<TRequest, TResponse>
     {
         private readonly IAuthProvider authProvider;
         protected readonly IBaseHttpClient<TResponse> HttpClient;

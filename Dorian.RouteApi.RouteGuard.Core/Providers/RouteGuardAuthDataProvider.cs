@@ -1,10 +1,11 @@
 ﻿using Dorian.RouteApi.Common.Constants;
+using Dorian.RouteApi.Infrastructure.Providers.Auth;
 using Dorian.RouteApi.Infrastructure.Providers.Configuration;
 using Dorian.RouteApi.RouteGuard.Core.Models;
 
 namespace Dorian.RouteApi.RouteGuard.Core.Providers
 {
-    public class RouteGuardAuthDataProvider : IRouteGuardAuthDataProvider
+    public class RouteGuardAuthDataProvider : IAuthDataProvider<RouteGuardAuthData>
     {
         private readonly IConfigurationProvider configurationProvider;
 
